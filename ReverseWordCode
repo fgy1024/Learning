@@ -1,0 +1,75 @@
+using System;
+namespace SingleExample
+{
+  class Program
+  { 
+        static void Main(string[] args)
+        {
+            //输入单词句子
+            string s = Console.ReadLine();    
+            //输出反转后的单词
+            Console.WriteLine(ReverseWord(s));
+        }
+        /// <summary>
+        /// 反转单词函数
+        /// </summary>
+        /// <param name="s">输入要处理的字符串</param>
+        /// <returns>返回反转完的句子</returns>
+        static string ReverseWord(string s)
+        {
+            //总字符串摘取句子  stringSplitotions枚举类表示是否割取空数组
+            string[] First_Arr = s.Split(".",StringSplitOptions.RemoveEmptyEntries);
+            //暂存工具数组
+            string[] Second_Arr;
+            string res = string.Empty;
+            int i, j;
+            for (i = 0; i < First_Arr.Length; i++)
+            {
+                //如果有逗号，则提取逗号，获得分句               
+                if (First_Arr[i].Contains(','))
+                {
+                    Second_Arr = First_Arr[i].Split(",");                   
+                    for (j = 0; j < Second_Arr.Length; j++)
+                    {
+                        if (j == Second_Arr.Length - 1)
+                        {
+                            res += MyReverse(Second_Arr[j]);
+                            continue;
+                        }
+                        res += MyReverse(Second_Arr[j]);
+                        res += ",";
+                    }
+                }
+                //无逗号，直接调用反转函数分割句子，实现反转
+                else
+                {
+                    res += MyReverse(First_Arr[i]);
+                }                
+                res += ".";
+            }
+            return res;
+        }
+        /// <summary>
+        /// 反转句子的函数实现
+        /// </summary>
+        /// <param name="s">传入句子字符串</param>
+        /// <returns>返回反转后的字符串句子</returns>
+        public static string MyReverse(string s)
+        {
+            string[] temp = s.Split(" ");
+            string res = string.Empty;
+            int i;
+            for (i = temp.Length-1; i >= 0; i--)
+            {
+                if (i == 0)
+                {
+                    res += temp[i];
+                    continue;
+                }
+                res += temp[i];
+                res += " ";               
+            }
+            return res;
+        }
+  }
+}
